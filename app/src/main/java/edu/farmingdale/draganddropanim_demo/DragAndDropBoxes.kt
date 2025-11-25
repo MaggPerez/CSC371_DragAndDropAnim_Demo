@@ -52,6 +52,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Button
 import androidx.compose.ui.res.painterResource
 
 //private val rotation = FloatPropKey()
@@ -60,6 +61,7 @@ import androidx.compose.ui.res.painterResource
 @Composable
 fun DragAndDropBoxes(modifier: Modifier = Modifier) {
     var isPlaying by remember { mutableStateOf(true) }
+    var resetToCenter by remember { mutableStateOf(false) }
     Column(modifier = Modifier.fillMaxSize()) {
 
         Row(
@@ -130,10 +132,10 @@ fun DragAndDropBoxes(modifier: Modifier = Modifier) {
 
 
         val pOffset by animateIntOffsetAsState(
-            targetValue = when (isPlaying) {
-                //"to do" 7 completed here
-                true -> IntOffset(130, 300)
-                false -> IntOffset(130, 100)
+            targetValue = when {
+                resetToCenter -> IntOffset(400, 55)
+                isPlaying -> IntOffset(130, 300)
+                else -> IntOffset(130, 100)
             },
             animationSpec = tween(3000, easing = LinearEasing)
         )
@@ -163,6 +165,17 @@ fun DragAndDropBoxes(modifier: Modifier = Modifier) {
                     .rotate(rtatView)
                     .background(Color.Blue)
             )
+
+            Button(
+                onClick = {
+                    resetToCenter = !resetToCenter
+                },
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(16.dp)
+            ) {
+                Text("Reset to Center")
+            }
         }
     }
 }
