@@ -62,6 +62,15 @@ import androidx.compose.ui.res.painterResource
 fun DragAndDropBoxes(modifier: Modifier = Modifier) {
     var isPlaying by remember { mutableStateOf(true) }
     var resetToCenter by remember { mutableStateOf(false) }
+
+    //will track which box was last dropped on
+    var dragBoxIndex by remember {
+        mutableIntStateOf(0)
+    }
+    var lastDroppedIndex by remember {
+        mutableIntStateOf(0)
+    }
+
     Column(modifier = Modifier.fillMaxSize()) {
 
         Row(
@@ -70,9 +79,6 @@ fun DragAndDropBoxes(modifier: Modifier = Modifier) {
                 .weight(0.2f)
         ) {
             val boxCount = 4
-            var dragBoxIndex by remember {
-                mutableIntStateOf(0)
-            }
 
             repeat(boxCount) { index ->
                 Box(
@@ -92,6 +98,7 @@ fun DragAndDropBoxes(modifier: Modifier = Modifier) {
                                     override fun onDrop(event: DragAndDropEvent): Boolean {
                                         isPlaying = !isPlaying
                                         dragBoxIndex = index
+                                        lastDroppedIndex = index
                                         return true
                                     }
                                 }
@@ -132,10 +139,27 @@ fun DragAndDropBoxes(modifier: Modifier = Modifier) {
 
 
         val pOffset by animateIntOffsetAsState(
+
+            //"to do" 7 completed here <--- accidentally removed this comment before
             targetValue = when {
+                //resets rect to center
                 resetToCenter -> IntOffset(400, 55)
-                isPlaying -> IntOffset(130, 300)
-                else -> IntOffset(130, 100)
+
+                /**
+                 * each box triggers a different pattern animation
+                 */
+
+                //box 1: Up/Down
+                lastDroppedIndex == 0 -> if (isPlaying) IntOffset(100, 50) else IntOffset(100, 300)
+
+                //box 2: Left/Right
+                lastDroppedIndex == 1 -> if (isPlaying) IntOffset(50, 150) else IntOffset(500, 150)
+
+                //box 3: Diagonal
+                lastDroppedIndex == 2 -> if (isPlaying) IntOffset(200, 100) else IntOffset(400, 250)
+
+                //box 4: Static (no movement)
+                else -> if (isPlaying) IntOffset(300, 200) else IntOffset(300, 200)
             },
             animationSpec = tween(3000, easing = LinearEasing)
         )
