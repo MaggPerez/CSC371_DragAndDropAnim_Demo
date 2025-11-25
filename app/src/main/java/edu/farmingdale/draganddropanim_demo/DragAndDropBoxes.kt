@@ -131,6 +131,7 @@ fun DragAndDropBoxes(modifier: Modifier = Modifier) {
 
         val pOffset by animateIntOffsetAsState(
             targetValue = when (isPlaying) {
+                //"to do" 7 completed here
                 true -> IntOffset(130, 300)
                 false -> IntOffset(130, 100)
             },
@@ -156,6 +157,7 @@ fun DragAndDropBoxes(modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .size(100.dp, 150.dp)
                     .padding(10.dp)
+                    //"to do " 7 completed here
                     .offset(pOffset.x.dp, pOffset.y.dp)
                     //this "to do" was completed at number 3
                     .rotate(rtatView)
