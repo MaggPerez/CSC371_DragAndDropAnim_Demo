@@ -51,6 +51,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.layout.size
 
 //private val rotation = FloatPropKey()
 
@@ -152,13 +153,13 @@ fun DragAndDropBoxes(modifier: Modifier = Modifier) {
                 .weight(0.8f)
                 .background(Color.Red)
         ) {
-            Icon(
-                imageVector = Icons.Default.Face,
-                contentDescription = "Face",
+            Box(
                 modifier = Modifier
+                    .size(100.dp, 150.dp)
                     .padding(10.dp)
                     .offset(pOffset.x.dp, pOffset.y.dp)
                     .rotate(rtatView)
+                    .background(Color.Blue)
             )
         }
     }
