@@ -157,6 +157,7 @@ fun DragAndDropBoxes(modifier: Modifier = Modifier) {
                     .size(100.dp, 150.dp)
                     .padding(10.dp)
                     .offset(pOffset.x.dp, pOffset.y.dp)
+                    //this "to do" was completed at number 3
                     .rotate(rtatView)
                     .background(Color.Blue)
             )
