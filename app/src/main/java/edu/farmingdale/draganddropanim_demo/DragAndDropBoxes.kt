@@ -52,6 +52,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.layout.size
+import androidx.compose.ui.res.painterResource
 
 //private val rotation = FloatPropKey()
 
@@ -101,12 +102,10 @@ fun DragAndDropBoxes(modifier: Modifier = Modifier) {
                         enter = scaleIn() + fadeIn(),
                         exit = scaleOut() + fadeOut()
                     ) {
-                        Text(
-                            text = "Right",
-                            fontSize = 40.sp,
-                            color = Color.Red,
-                            fontWeight = FontWeight.Bold,
-
+                        Icon(
+                            painter = painterResource(id = R.drawable.right_arrow),
+                            contentDescription = "Right Arrow",
+                            tint = Color.Red,
                             modifier = Modifier
                                 .fillMaxSize()
                                 .dragAndDropSource {
